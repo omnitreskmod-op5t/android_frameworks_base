@@ -53,7 +53,7 @@ import javax.inject.Named;
 public class KeyguardClockSwitch extends RelativeLayout implements TunerService.Tunable {
 
     private static final String TAG = "KeyguardClockSwitch";
-    private static final boolean CUSTOM_CLOCKS_ENABLED = true;
+    private static final boolean CUSTOM_CLOCKS_ENABLED = false;
     private static final String KEYGUARD_TRANSISITION_ANIMATIONS = "sysui_keyguard_transition_animations";
 
     /**
