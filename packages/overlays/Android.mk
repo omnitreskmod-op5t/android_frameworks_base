@@ -33,20 +33,20 @@ LOCAL_REQUIRED_MODULES := \
 	FontNotoSerifSourceOverlay \
 	FontRubikRubikOverlay \
 	IconPackCircularAndroidOverlay \
-	IconPackCircularLauncherOverlay \
+	IconPackCircularPixelLauncherOverlay \
 	IconPackCircularSettingsOverlay \
 	IconPackCircularSystemUIOverlay \
-	IconPackCircularThemePickerOverlay \
+	IconPackCircularPixelThemePickerOverlay \
 	IconPackFilledAndroidOverlay \
-	IconPackFilledLauncherOverlay \
+	IconPackFilledPixelLauncherOverlay \
 	IconPackFilledSettingsOverlay \
 	IconPackFilledSystemUIOverlay \
-	IconPackFilledThemePickerOverlay \
+	IconPackFilledPixelThemePickerOverlay \
 	IconPackRoundedAndroidOverlay \
-	IconPackRoundedLauncherOverlay \
+	IconPackRoundedPixelLauncherOverlay \
 	IconPackRoundedSettingsOverlay \
 	IconPackRoundedSystemUIOverlay \
-	IconPackRoundedThemePickerUIOverlay \
+	IconPackRoundedPixelThemePickerOverlay \
 	IconShapeRoundedRectOverlay \
 	IconShapeSquircleOverlay \
 	IconShapeTeardropOverlay \
