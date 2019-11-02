@@ -623,6 +623,8 @@ public class StatusBar extends SystemUI implements DemoMode,
     private ActivityIntentHelper mActivityIntentHelper;
     private ShadeController mShadeController;
 
+    private KeyguardSliceProvider mSliceProvider;
+
     // omni additions start
     private class OmniSettingsObserver extends ContentObserver {
         OmniSettingsObserver(Handler handler) {
@@ -648,6 +650,9 @@ public class StatusBar extends SystemUI implements DemoMode,
             mContext.getContentResolver().registerContentObserver(Settings.System.getUriFor(
                     Settings.System.OMNI_NAVIGATION_BAR_SHOW),
                     false, this, UserHandle.USER_ALL);
+            mContext.getContentResolver().registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.OMNI_PULSE_ON_NEW_TRACKS),
+                    false, this, UserHandle.USER_ALL);
         }
 
         @Override
@@ -657,7 +662,10 @@ public class StatusBar extends SystemUI implements DemoMode,
 
         @Override
         public void onChange(boolean selfChange, Uri uri) {
-            if (uri != null && uri.equals(Settings.System.getUriFor(
+            if (uri.equals(Settings.System.getUriFor(
+                    Settings.System.OMNI_PULSE_ON_NEW_TRACKS))) {
+                setPulseOnNewTracks();
+            } else if (uri != null && uri.equals(Settings.System.getUriFor(
                     Settings.System.OMNI_NAVIGATION_BAR_SHOW))) {
                 updateNavigationBar(false);
             } else {
@@ -714,10 +722,9 @@ public class StatusBar extends SystemUI implements DemoMode,
         mUiModeManager = mContext.getSystemService(UiModeManager.class);
         mKeyguardViewMediator = getComponent(KeyguardViewMediator.class);
         mActivityIntentHelper = new ActivityIntentHelper(mContext);
-
-        KeyguardSliceProvider sliceProvider = KeyguardSliceProvider.getAttachedInstance();
-        if (sliceProvider != null) {
-            sliceProvider.initDependencies(mMediaManager, mStatusBarStateController,
+        mSliceProvider = KeyguardSliceProvider.getAttachedInstance();
+        if (mSliceProvider != null) {
+            mSliceProvider.initDependencies(mMediaManager, mStatusBarStateController,
                     mKeyguardBypassController, DozeParameters.getInstance(mContext));
         } else {
             Log.w(TAG, "Cannot init KeyguardSliceProvider dependencies");
@@ -1863,6 +1870,15 @@ public class StatusBar extends SystemUI implements DemoMode,
 
     public NotificationPresenter getPresenter() {
         return mPresenter;
+    }
+
+
+    private void setPulseOnNewTracks() {
+        if (mSliceProvider != null) {
+            mSliceProvider.setPulseOnNewTracks(Settings.System.getIntForUser(mContext.getContentResolver(),
+                    Settings.System.OMNI_PULSE_ON_NEW_TRACKS, 1,
+                    UserHandle.USER_CURRENT) == 1);
+        }
     }
 
     /**

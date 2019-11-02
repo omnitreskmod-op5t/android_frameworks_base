@@ -5154,6 +5154,15 @@ public final class Settings {
         private static final Validator OMNI_USE_OLD_MOBILETYPE_VALIDATOR =
                 BOOLEAN_VALIDATOR;
 
+        /** Whether to pulse ambient on new music tracks
+         *
+         * @hide
+         */
+        public static final String OMNI_PULSE_ON_NEW_TRACKS = "pulse_on_new_tracks";
+
+        private static final Validator OMNI_PULSE_ON_NEW_TRACKS_VALIDATOR =
+                BOOLEAN_VALIDATOR;
+
         /**
          * Whether to show arrow keys in navigation bar
          * @hide
@@ -5403,6 +5412,7 @@ public final class Settings {
             OMNI_BUTTON_BACKLIGHT_ENABLE,
             OMNI_BUTTON_BACKLIGHT_TIMEOUT,
             OMNI_BUTTON_BACKLIGHT_ON_TOUCH_ONLY,
+            OMNI_PULSE_ON_NEW_TRACKS,
         };
 
         /**
@@ -5596,6 +5606,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(OMNI_BUTTON_BACKLIGHT_ENABLE);
             PRIVATE_SETTINGS.add(OMNI_BUTTON_BACKLIGHT_TIMEOUT);
             PRIVATE_SETTINGS.add(OMNI_BUTTON_BACKLIGHT_ON_TOUCH_ONLY);
+            PRIVATE_SETTINGS.add(OMNI_PULSE_ON_NEW_TRACKS);
         }
 
         /**
@@ -5807,6 +5818,7 @@ public final class Settings {
                     OMNI_BUTTON_BACKLIGHT_TIMEOUT_VALIDATOR);
             VALIDATORS.put(OMNI_BUTTON_BACKLIGHT_ON_TOUCH_ONLY,
                     OMNI_BUTTON_BACKLIGHT_ON_TOUCH_ONLY_VALIDATOR);
+            VALIDATORS.put(OMNI_PULSE_ON_NEW_TRACKS, OMNI_PULSE_ON_NEW_TRACKS_VALIDATOR);
         }
 
         /**
