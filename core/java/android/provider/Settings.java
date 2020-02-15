@@ -5314,6 +5314,13 @@ public final class Settings {
          */
          public static final String NETWORK_TRAFFIC_VIEW_LOCATION = "network_traffic_view_location";
 
+        /** @hide */
+        public static final String GESTURE_PILL_TOGGLE = "gesture_pill_toggle";
+
+        /** @hide */
+        private static final Validator GESTURE_PILL_TOGGLE_VALIDATOR =
+                BOOLEAN_VALIDATOR;
+
         /**
          * Three Finger Gesture from Oppo
          * @hide
@@ -5657,6 +5664,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(NETWORK_TRAFFIC_AUTOHIDE_THRESHOLD);
             PRIVATE_SETTINGS.add(NETWORK_TRAFFIC_FONT_SIZE);
             PRIVATE_SETTINGS.add(NETWORK_TRAFFIC_VIEW_LOCATION);
+            PRIVATE_SETTINGS.add(GESTURE_PILL_TOGGLE);
         }
 
         /**
@@ -5869,6 +5877,7 @@ public final class Settings {
             VALIDATORS.put(OMNI_BUTTON_BACKLIGHT_ON_TOUCH_ONLY,
                     OMNI_BUTTON_BACKLIGHT_ON_TOUCH_ONLY_VALIDATOR);
             VALIDATORS.put(OMNI_PULSE_ON_NEW_TRACKS, OMNI_PULSE_ON_NEW_TRACKS_VALIDATOR);
+            VALIDATORS.put(GESTURE_PILL_TOGGLE, GESTURE_PILL_TOGGLE_VALIDATOR);
         }
 
         /**
