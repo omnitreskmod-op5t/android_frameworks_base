@@ -14,9 +14,17 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License
 
+<<<<<<< HEAD
   NOTE: You might also want to edit: core/res/res/values-night/*.xml
   -->
 <resources>
     <color name="qs_background_dark_color">@android:color/white</color>
     <color name="qs_icon_active_color">@*android:color/qs_icon_active_color</color>
+
+    <!-- Color for the Assistant invocation lights -->
+    <color name="edge_light_blue">#4185f4</color>
+    <color name="edge_light_green">#3aa853</color>
+    <color name="edge_light_red">#ea4234</color>
+    <color name="edge_light_yellow">#fbbc06</color>
+
 </resources>
