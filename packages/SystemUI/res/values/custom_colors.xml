@@ -19,7 +19,6 @@
   -->
 <resources>
     <color name="qs_background_dark_color">@android:color/white</color>
-    <color name="qs_icon_active_color">@*android:color/qs_icon_active_color</color>
 
     <!-- Color for the Assistant invocation lights -->
     <color name="edge_light_blue">#4185f4</color>
