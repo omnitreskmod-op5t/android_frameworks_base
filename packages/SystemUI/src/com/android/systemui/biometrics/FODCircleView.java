@@ -230,8 +230,9 @@ public class FODCircleView extends ImageView implements OnTouchListener,
         @Override
         public void onBiometricRunningStateChanged(boolean running,
                 BiometricSourceType biometricSourceType) {
+            if (biometricSourceType == BiometricSourceType.FINGERPRINT) {
             super.onBiometricRunningStateChanged(running, biometricSourceType);
-            if (running) {
+            } else if (running) {
                 show();
                 setCustomIcon();
             } else {
