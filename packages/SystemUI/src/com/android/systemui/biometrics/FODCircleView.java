@@ -470,7 +470,7 @@ public class FODCircleView extends ImageView implements OnTouchListener,
             return;
         }
 
-        if (mIsBouncer) {
+        if (mIsBouncer && !isPinOrPattern(mUpdateMonitor.getCurrentUser())) {
             return;
         }
 
