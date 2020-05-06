@@ -129,9 +129,6 @@
     <string name="accessibility_dpad_right">Курсор вправо</string>
     <string name="screenrecord_stopdot_label">Показать точку остановки</string>
     <string name="screenrecord_low_quality_label">Низкое качество</string>
-    <!-- Partial screenshot -->
-    <string name="global_screenshot_selector_capture_description">Сделать частичный скриншот</string>
-    <string name="global_screenshot_selector_cancel_description">Отменить частичный скриншот</string>
     <!-- Immersive tile -->
     <string name="quick_settings_immersive_tile">Режим погружения</string>
     <string name="quick_settings_immersive_tile_statusbar">Иммерсивная строка состояния</string>
@@ -140,4 +137,8 @@
     <!-- Language toggle tile -->
     <string name="quick_settings_locale_label">Язык</string>
     <string name="quick_settings_locale_more_locales_toast">Пожалуйста, настройте несколько языков, чтобы активировать функцию переключения</string>
+    <!-- DataSwitch Tile -->
+    <string name="qs_data_switch_label">Переключить карту мобильных данных</string>
+    <string name="qs_data_switch_changed_1">Использование SIM 1 для передачи данных</string>
+    <string name="qs_data_switch_changed_2">Использование SIM 2 для передачи данных</string>
 </resources>

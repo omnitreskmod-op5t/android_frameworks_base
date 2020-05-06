@@ -260,6 +260,7 @@ public class KeyguardUpdateMonitor implements TrustManager.TrustListener {
     private boolean mLogoutEnabled;
     // If the user long pressed the lock icon, disabling face auth for the current session.
     private boolean mLockIconPressed;
+    private boolean mFingerprintLockout;
 
     private final boolean mFaceAuthOnlyOnSecurityView;
 
@@ -689,6 +690,10 @@ public class KeyguardUpdateMonitor implements TrustManager.TrustListener {
                     getCurrentUser());
         }
 
+        if (msgId == FingerprintManager.FINGERPRINT_ERROR_LOCKOUT) {
+            mFingerprintLockout = true;
+        }
+
         for (int i = 0; i < mCallbacks.size(); i++) {
             KeyguardUpdateMonitorCallback cb = mCallbacks.get(i).get();
             if (cb != null) {
@@ -698,6 +703,7 @@ public class KeyguardUpdateMonitor implements TrustManager.TrustListener {
     }
 
     private void handleFingerprintLockoutReset() {
+        mFingerprintLockout = false;
         updateFingerprintListeningState();
     }
 
@@ -1627,7 +1633,7 @@ public class KeyguardUpdateMonitor implements TrustManager.TrustListener {
             return;
         }
         mHandler.removeCallbacks(mRetryFingerprintAuthentication);
-        boolean shouldListenForFingerprint = shouldListenForFingerprint();
+        boolean shouldListenForFingerprint = shouldListenForFingerprint() && !mFingerprintLockout;
         boolean runningOrRestarting = mFingerprintRunningState == BIOMETRIC_STATE_RUNNING
                 || mFingerprintRunningState == BIOMETRIC_STATE_CANCELLING_RESTARTING;
         if (runningOrRestarting && !shouldListenForFingerprint) {
@@ -1776,6 +1782,7 @@ public class KeyguardUpdateMonitor implements TrustManager.TrustListener {
             mFpm.authenticate(null, mFingerprintCancelSignal, 0, mFingerprintAuthenticationCallback,
                     null, userId);
             setFingerprintRunningState(BIOMETRIC_STATE_RUNNING);
+            mFingerprintLockout = false;
         }
     }
 
@@ -2706,5 +2713,14 @@ public class KeyguardUpdateMonitor implements TrustManager.TrustListener {
             }
         }
         return mPulsing;
+    }
+
+    public void setFodVisbility(boolean visible) {
+        for (int i = 0; i < mCallbacks.size(); i++) {
+            KeyguardUpdateMonitorCallback cb = mCallbacks.get(i).get();
+            if (cb != null) {
+                cb.onFodVisibilityChanged(visible);
+            }
+        }
     }
 }

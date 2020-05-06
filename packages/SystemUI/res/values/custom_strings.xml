@@ -55,6 +55,8 @@
     <string name="qs_menu_item_qs_columns">Quickbar columns</string>
     <string name="qs_menu_item_columns_auto">Automatic</string>
 
+    <string name="tuner_show_brightness_mode">Show brightness mode switch</string>
+    <string name="tuner_show_brightness_side_buttons">Show brightness slider side buttons</string>
     <string name="tuner_quick_settings">Quick settings</string>
     <string name="tuner_show_brightness_new">Show brightness slider</string>
     <string name="tuner_brightness_position_bottom">Brightness slider on bottom</string>
@@ -105,6 +107,8 @@
     <string name="tuner_keyguard_transition_animations_title">Show transition animations</string>
     <string name="tuner_keyguard_transition_animations_summary">Show useless animations</string>
     <string name="tuner_qs_long_press_action">Dont show panels on long press</string>
+    <string name="tuner_keyguard_fod_unlock_enabled_title">Allow secondary FOD unlock</string>
+    <string name="tuner_keyguard_fod_unlock_enabled_summary">For devices with FOD allow using on secondary unlock screens</string>
 
     <string name="omnijaws_service_error">Error</string>
     <string name="omnijaws_service_unkown">No weather data</string>

@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-/* //device/apps/common/assets/res/any/strings.xml
-**
-** Copyright 2006, The Android Open Source Project
+/*
+** Copyright 2020, The Android Open Source Project
 **
 ** Licensed under the Apache License, Version 2.0 (the "License");
 ** you may not use this file except in compliance with the License.
@@ -17,15 +16,12 @@
 ** limitations under the License.
 */
 -->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- Caffeine tile -->
-    <!-- AOD QS tile -->
-    <!-- Shows when people have clicked on the custom lockscreen shortcut [CHAR LIMIT=60] -->
-    <!-- QS Config -->
-    <!-- ADB over network tile -->
-    <!-- Heads Up QS Tile -->
-    <!-- navbar editor -->
-    <!-- Navigation bar dpad -->
-    <!-- Immersive tile -->
-    <!-- DataSwitch Tile -->
+
+<!-- These resources are around just to allow their values to be customized
+     for different hardware and product builds. -->
+<resources>
+
+    <!-- Whether to use keyguard_security_container_bottom_margin unconditionally -->
+    <bool name="keyguard_security_container_force_bottom_margin">false</bool>
+
 </resources>
