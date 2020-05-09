@@ -166,4 +166,7 @@
     <!-- Language toggle tile -->
     <string name="quick_settings_locale_label">Language</string>
     <string name="quick_settings_locale_more_locales_toast">Please configure multiple languages to enable toggle functionality</string>
+
+    <string name="screenshot_error_title">Screenshot invalid</string>
+    <string name="screenrecord_error_title">Screen record invalid</string>
 </resources>
