@@ -552,7 +552,7 @@ public class FODCircleView extends ImageView implements OnTouchListener,
         if (mCustomImage != null) {
             setImageDrawable(mCustomImage);
         } else {
-            setImageResource(mIsDreaming ? R.drawable.fod_icon_aod : R.drawable.fod_icon_default);
+            setImageResource(R.drawable.fod_icon_default);
         }
     }
 
