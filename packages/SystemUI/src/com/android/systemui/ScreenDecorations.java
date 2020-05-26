@@ -107,6 +107,7 @@ public class ScreenDecorations extends SystemUI implements Tunable,
     private static final boolean DEBUG_SCREENSHOT_ROUNDED_CORNERS =
             SystemProperties.getBoolean("debug.screenshot_rounded_corners", false);
     private static final boolean VERBOSE = false;
+    public static final String SHOW_ASSISTANT_HANDLE = "sysui_keyguard_show_assistant_handle";
 
     private DisplayManager mDisplayManager;
     private DisplayManager.DisplayListener mDisplayListener;
@@ -132,6 +133,7 @@ public class ScreenDecorations extends SystemUI implements Tunable,
     private boolean mIsReceivingNavBarColor = false;
     private boolean mInGesturalMode;
     private boolean mCustomCutout;
+    private boolean mAssistHintDisable;
 
     /**
      * Converts a set of {@link Rect}s into a {@link Region}
@@ -254,7 +256,7 @@ public class ScreenDecorations extends SystemUI implements Tunable,
             return;
         }
 
-        if (mAssistHintBlocked && visible) {
+        if ((mAssistHintBlocked || mAssistHintDisable) && visible) {
             if (VERBOSE) {
                 Log.v(TAG, "Assist hint blocked, cannot make it visible");
             }
@@ -407,6 +409,8 @@ public class ScreenDecorations extends SystemUI implements Tunable,
 
         Dependency.get(Dependency.MAIN_HANDLER).post(
                 () -> Dependency.get(TunerService.class).addTunable(this, SIZE));
+        Dependency.get(Dependency.MAIN_HANDLER).post(
+                () -> Dependency.get(TunerService.class).addTunable(this, SHOW_ASSISTANT_HANDLE));
 
         // Watch color inversion and invert the overlay as needed.
         mColorInversionSetting = new SecureSetting(mContext, mHandler,
@@ -719,6 +723,9 @@ public class ScreenDecorations extends SystemUI implements Tunable,
 
     private WindowManager.LayoutParams getBottomLayoutParams() {
         WindowManager.LayoutParams lp = getWindowLayoutParams();
+        // we dont need that for the assistant handles
+        lp.privateFlags &= ~WindowManager.LayoutParams.PRIVATE_FLAG_IS_ROUNDED_CORNERS_OVERLAY;
+
         lp.setTitle("ScreenDecorOverlayBottom");
         if (mRotation == RotationUtils.ROTATION_SEASCAPE
                 || mRotation == RotationUtils.ROTATION_UPSIDE_DOWN) {
@@ -762,6 +769,12 @@ public class ScreenDecorations extends SystemUI implements Tunable,
                 setSize(mOverlay.findViewById(R.id.right), sizeTop);
                 setSize(mBottomOverlay.findViewById(R.id.left), sizeBottom);
                 setSize(mBottomOverlay.findViewById(R.id.right), sizeBottom);
+            }
+            if (SHOW_ASSISTANT_HANDLE.equals(key)) {
+                mAssistHintDisable = newValue != null && Integer.parseInt(newValue) == 0;
+                if (mAssistHintVisible && mAssistHintDisable) {
+                    hideAssistHandles();
+                }
             }
         });
     }
