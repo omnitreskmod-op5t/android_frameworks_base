@@ -425,12 +425,10 @@ public class KeyguardPasswordView extends KeyguardAbsKeyInputView
 
     @Override
     public void hideFod() {
-        if (mFodShowing) {
-            mFodShowing = false;
-            mContainer.setVisibility(View.VISIBLE);
-            mSwitchFodButtonContainer.setVisibility(View.GONE);
-            startAppearAnimation();
-        }
+        mFodShowing = false;
+        mContainer.setVisibility(View.VISIBLE);
+        mSwitchFodButtonContainer.setVisibility(View.GONE);
+        startAppearAnimation();
     }
 
     @Override

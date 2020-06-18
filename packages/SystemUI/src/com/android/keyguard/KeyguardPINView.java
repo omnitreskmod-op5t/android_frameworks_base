@@ -208,11 +208,9 @@ public class KeyguardPINView extends KeyguardPinBasedInputView {
 
     @Override
     public void hideFod() {
-        if (mSwitchFodButtonContainer.getVisibility() == View.VISIBLE) {
-            mContainer.setVisibility(View.VISIBLE);
-            mSwitchFodButtonContainer.setVisibility(View.GONE);
-            startAppearAnimation();
-        }
+        mContainer.setVisibility(View.VISIBLE);
+        mSwitchFodButtonContainer.setVisibility(View.GONE);
+        startAppearAnimation();
     }
 
     @Override
