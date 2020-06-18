@@ -27,14 +27,12 @@ import android.text.method.TextKeyListener;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.view.animation.Interpolator;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.view.inputmethod.InputMethodSubtype;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
@@ -64,11 +62,6 @@ public class KeyguardPasswordView extends KeyguardAbsKeyInputView
 
     private Interpolator mLinearOutSlowInInterpolator;
     private Interpolator mFastOutLinearInInterpolator;
-    private ViewGroup mContainer;
-    private ImageView mSwitchFodButton;
-    private final KeyguardUpdateMonitor mKeyguardUpdateMonitor;
-    private ViewGroup mSwitchFodButtonContainer;
-    private boolean mFodShowing;
 
     public KeyguardPasswordView(Context context) {
         this(context, null);
@@ -84,7 +77,6 @@ public class KeyguardPasswordView extends KeyguardAbsKeyInputView
                 context, android.R.interpolator.linear_out_slow_in);
         mFastOutLinearInInterpolator = AnimationUtils.loadInterpolator(
                 context, android.R.interpolator.fast_out_linear_in);
-        mKeyguardUpdateMonitor = KeyguardUpdateMonitor.getInstance(context);
     }
 
     @Override
@@ -97,7 +89,7 @@ public class KeyguardPasswordView extends KeyguardAbsKeyInputView
         setPasswordEntryEnabled(true);
         setPasswordEntryInputEnabled(true);
         // Don't call showSoftInput when PasswordEntry is invisible or in pausing stage.
-        if (!mResumed || !mPasswordEntry.isVisibleToUser() || mFodShowing) {
+        if (!mResumed || !mPasswordEntry.isVisibleToUser()) {
             return;
         }
         if (wasDisabled) {
@@ -123,7 +115,7 @@ public class KeyguardPasswordView extends KeyguardAbsKeyInputView
         post(new Runnable() {
             @Override
             public void run() {
-                if (isShown() && mPasswordEntry.isEnabled() && !mFodShowing) {
+                if (isShown() && mPasswordEntry.isEnabled()) {
                     mPasswordEntry.requestFocus();
                     if (reason != KeyguardSecurityView.SCREEN_ON || mShowImeAtScreenOn) {
                         mImm.showSoftInput(mPasswordEntry, InputMethodManager.SHOW_IMPLICIT);
@@ -182,7 +174,6 @@ public class KeyguardPasswordView extends KeyguardAbsKeyInputView
     protected void onFinishInflate() {
         super.onFinishInflate();
 
-        mContainer = findViewById(R.id.container);
         mImm = (InputMethodManager) getContext().getSystemService(
                 Context.INPUT_METHOD_SERVICE);
 
@@ -224,15 +215,7 @@ public class KeyguardPasswordView extends KeyguardAbsKeyInputView
                 mCallback.onCancelClicked();
             });
         }
-        mSwitchFodButtonContainer = findViewById(R.id.keyguard_security_container_fod_container);
-        mSwitchFodButton = findViewById(R.id.keyguard_security_container_fod_button);
-        mSwitchFodButton.setImageResource(R.drawable.keyguard_password_fod_button);
-        if (mSwitchFodButton != null) {
-            mSwitchFodButton.setOnClickListener(v -> {
-                hideFod();
-                mKeyguardUpdateMonitor.setFodVisbility(false);
-            });
-        }
+
         // If there's more than one IME, enable the IME switcher button
         updateSwitchImeButton();
 
@@ -345,11 +328,6 @@ public class KeyguardPasswordView extends KeyguardAbsKeyInputView
 
     @Override
     public boolean startDisappearAnimation(Runnable finishRunnable) {
-        if (mSwitchFodButtonContainer.getVisibility() == View.VISIBLE) {
-            mSwitchFodButtonContainer.setVisibility(View.INVISIBLE);
-            mEcaView.setVisibility(View.INVISIBLE);
-        }
-
         animate()
                 .alpha(0f)
                 .translationY(mDisappearYTranslation)
@@ -414,25 +392,5 @@ public class KeyguardPasswordView extends KeyguardAbsKeyInputView
             bytes[i] = (byte) chars.charAt(i);
         }
         return bytes;
-    }
-
-    @Override
-    public void showFod() {
-        mFodShowing = true;
-        mSwitchFodButtonContainer.setVisibility(View.VISIBLE);
-        mContainer.setVisibility(View.GONE);
-    }
-
-    @Override
-    public void hideFod() {
-        mFodShowing = false;
-        mContainer.setVisibility(View.VISIBLE);
-        mSwitchFodButtonContainer.setVisibility(View.GONE);
-        startAppearAnimation();
-    }
-
-    @Override
-    public boolean canShowFod() {
-        return true;
     }
 }

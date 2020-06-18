@@ -32,7 +32,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.view.animation.Interpolator;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.android.internal.annotations.VisibleForTesting;
@@ -105,8 +104,6 @@ public class KeyguardPatternView extends LinearLayout implements KeyguardSecurit
     private View mEcaView;
     private ViewGroup mContainer;
     private int mDisappearYTranslation;
-    private ImageView mSwitchFodButton;
-    private ViewGroup mSwitchFodButtonContainer;
 
     enum FooterMode {
         Normal,
@@ -175,15 +172,6 @@ public class KeyguardPatternView extends LinearLayout implements KeyguardSecurit
             cancelBtn.setOnClickListener(view -> {
                 mCallback.reset();
                 mCallback.onCancelClicked();
-            });
-        }
-        mSwitchFodButtonContainer = findViewById(R.id.keyguard_security_container_fod_container);
-        mSwitchFodButton = findViewById(R.id.keyguard_security_container_fod_button);
-        mSwitchFodButton.setImageResource(R.drawable.keyguard_pattern_fod_button);
-        if (mSwitchFodButton != null) {
-            mSwitchFodButton.setOnClickListener(v -> {
-                hideFod();
-                mKeyguardUpdateMonitor.setFodVisbility(false);
             });
         }
     }
@@ -493,11 +481,6 @@ public class KeyguardPatternView extends LinearLayout implements KeyguardSecurit
 
     @Override
     public boolean startDisappearAnimation(final Runnable finishRunnable) {
-        if (mSwitchFodButtonContainer.getVisibility() == View.VISIBLE) {
-            mSwitchFodButtonContainer.setVisibility(View.INVISIBLE);
-            mEcaView.setVisibility(View.INVISIBLE);
-        }
-
         float durationMultiplier = mKeyguardUpdateMonitor.needsSlowUnlockTransition()
                 ? DISAPPEAR_MULTIPLIER_LOCKED
                 : 1f;
@@ -563,25 +546,5 @@ public class KeyguardPatternView extends LinearLayout implements KeyguardSecurit
     public CharSequence getTitle() {
         return getContext().getString(
                 com.android.internal.R.string.keyguard_accessibility_pattern_unlock);
-    }
-
-    @Override
-    public void showFod() {
-        mLockPatternView.disableInput();
-        mLockPatternView.setVisibility(View.INVISIBLE);
-        mSwitchFodButtonContainer.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void hideFod() {
-        mSwitchFodButtonContainer.setVisibility(View.GONE);
-        mLockPatternView.setVisibility(View.VISIBLE);
-        mLockPatternView.enableInput();
-        startAppearAnimation();
-    }
-
-    @Override
-    public boolean canShowFod() {
-        return true;
     }
 }
