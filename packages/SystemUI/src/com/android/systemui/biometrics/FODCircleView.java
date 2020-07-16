@@ -205,6 +205,7 @@ public class FODCircleView extends ImageView implements OnTouchListener,
             mIsScreenOn = true;
             mIsInsideCircle = false;
             setCustomIcon();
+            setCustomColor();
         }
 
         @Override
@@ -258,7 +259,6 @@ public class FODCircleView extends ImageView implements OnTouchListener,
         Resources res = context.getResources();
 
         mPaintFingerprint.setAntiAlias(true);
-        mPaintFingerprint.setColor(res.getColor(R.color.config_fodColor));
 
         mPaintFingerprintBackground.setColor(res.getColor(R.color.config_fodColorBackground));
         mPaintFingerprintBackground.setAntiAlias(true);
@@ -266,7 +266,8 @@ public class FODCircleView extends ImageView implements OnTouchListener,
         setCustomIcon();
 
         mPaintShow.setAntiAlias(true);
-        mPaintShow.setColor(res.getColor(R.color.config_fodColor));
+
+        setCustomColor();
 
         setOnTouchListener(this);
 
@@ -606,6 +607,23 @@ public class FODCircleView extends ImageView implements OnTouchListener,
             setImageDrawable(mCustomImage);
         } else {
             setImageResource(R.drawable.fod_icon_default);
+        }
+    }
+
+    private void setCustomColor() {
+        Resources res = getContext().getResources();
+        int resColor = res.getColor(R.color.config_fodColor);
+        try {
+            String colorString = Settings.System.getStringForUser(getContext().getContentResolver(),
+                    "custom_fod_color", UserHandle.USER_CURRENT);
+            if (colorString != null) {
+                Log.d(TAG, "custom_fod_color = " + colorString);
+                resColor = Color.parseColor(colorString);
+            }
+            mPaintFingerprint.setColor(resColor);
+            mPaintShow.setColor(resColor);
+        } catch (Exception e){
+            Log.e(TAG, "custom_fod_color invalid", e);
         }
     }
 

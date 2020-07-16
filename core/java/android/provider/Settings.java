@@ -4927,6 +4927,14 @@ public final class Settings {
                 ANY_INTEGER_VALIDATOR;
 
         /**
+         * @hide
+         */
+        public static final String OMNI_DOZE_BRIGHTNESS_FORCE = "doze_brightness_force";
+
+        private static final Validator OMNI_DOZE_BRIGHTNESS_FORCE_VALIDATOR =
+                BOOLEAN_VALIDATOR;
+
+        /**
          * whether to enable or disable vibration on succesful fingerprint auth
          *
          * @hide
@@ -5456,6 +5464,7 @@ public final class Settings {
             OMNI_BUTTON_BACKLIGHT_TIMEOUT,
             OMNI_BUTTON_BACKLIGHT_ON_TOUCH_ONLY,
             OMNI_PULSE_ON_NEW_TRACKS,
+            OMNI_DOZE_BRIGHTNESS_FORCE,
         };
 
         /**
@@ -5654,6 +5663,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(NETWORK_TRAFFIC_VIEW_LOCATION);
             PRIVATE_SETTINGS.add(GESTURE_PILL_TOGGLE);
             PRIVATE_SETTINGS.add(INCALL_FEEDBACK_VIBRATE);
+            PRIVATE_SETTINGS.add(OMNI_DOZE_BRIGHTNESS_FORCE);
         }
 
         /**
@@ -5862,6 +5872,7 @@ public final class Settings {
             VALIDATORS.put(OMNI_PULSE_ON_NEW_TRACKS, OMNI_PULSE_ON_NEW_TRACKS_VALIDATOR);
             VALIDATORS.put(GESTURE_PILL_TOGGLE, GESTURE_PILL_TOGGLE_VALIDATOR);
             VALIDATORS.put(INCALL_FEEDBACK_VIBRATE, INCALL_FEEDBACK_VIBRATE_VALIDATOR);
+            VALIDATORS.put(OMNI_DOZE_BRIGHTNESS_FORCE, OMNI_DOZE_BRIGHTNESS_FORCE_VALIDATOR);
         }
 
         /**
